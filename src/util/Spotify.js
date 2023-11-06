@@ -21,14 +21,14 @@ const Spotify = {
             //must convert string to number and convert seconds to milliseconds
             const expiresIn = +expiresInMatch[1] * 1000;
             //clear search parameters
-            window.pushState({}, null, '/');
+            window.history.pushState({}, null, '/');
             //set timer to remove the accessToken when API expires per Spotify 
             window.setTimeout(() => accessToken = '', expiresIn);
             return accessToken;
         } else {
             //using implicit flow we set our url to this url the way spotify requires and then spotify will redirect back to
             //web app with the access token and expires in in the url
-            const url = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=playlisy-modify-public&redirect_uri=${redirectURL}`;
+            const url = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=playlist-modify-public&redirect_uri=${redirectURL}`;
             window.location = url;
         }
     },

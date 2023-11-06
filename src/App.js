@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Header from './Components/Header/Header';
 import Playlist from './Components/Playlist/Playlist';
 import SearchBar from './Components/SearchBar/SearchBar';
 import SearchResults from './Components/SearchResults/SearchResults';
+import Spotify from './util/Spotify';
 
 import './App.css';
 
 function App() {
+
+  //initialize the access token when first rendered
+  useEffect(() => {
+    Spotify.getAccessToken();
+  }, []);
 
   //plus/minus symbols to differentiate between adding or removing a song
   const add = '+';
