@@ -4,6 +4,7 @@ let accessToken;
 
 const Spotify = {
     getAccessToken() {
+        accessToken = localStorage.getItem('accessToken');
         //if already have token from API merely return the token
         if(accessToken) {
             return accessToken;
@@ -18,12 +19,15 @@ const Spotify = {
         if(accessTokenMatch && expiresInMatch) {
             //match method returns an array where necessary info is second element
             accessToken = accessTokenMatch[1];
+            localStorage.setItem('accessToken', accessToken)
             //must convert string to number and convert seconds to milliseconds
             const expiresIn = +expiresInMatch[1] * 1000;
             //clear search parameters
             window.history.pushState({}, null, '/');
             //set timer to remove the accessToken when API expires per Spotify 
-            window.setTimeout(() => accessToken = '', expiresIn);
+            window.setTimeout(() => {
+                localStorage.removeItem('access_Token');
+            }, expiresIn);
             return accessToken;
         } else {
             //using implicit flow we set our url to this url the way spotify requires and then spotify will redirect back to
