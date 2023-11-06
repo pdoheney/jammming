@@ -1,8 +1,11 @@
-import './App.css';
+import React, { useState } from 'react';
+
 import Header from './Components/Header/Header';
 import Playlist from './Components/Playlist/Playlist';
 import SearchBar from './Components/SearchBar/SearchBar';
 import SearchResults from './Components/SearchResults/SearchResults';
+
+import './App.css';
 
 const searchResults = [
   {name: 'Song 1', artist: 'Singer 1', album: 'Album 1', uri: 'kdhwbvwi'},
@@ -12,13 +15,16 @@ const searchResults = [
 ];
 
 function App() {
+  //create state for storing playlists and set to empty array
+  const [playlistTracks, setPlaylistTracks] = useState([]);
+
   return(
     <>
       <Header />
       <SearchBar />
       <div className='container'>
         <SearchResults searchResults={searchResults}/>
-        <Playlist playlist={searchResults}/>
+        <Playlist playlist={playlistTracks}/>
       </div>
     </>
   );
