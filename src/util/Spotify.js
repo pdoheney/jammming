@@ -32,6 +32,23 @@ const Spotify = {
             window.location = url;
         }
     },
+    async search(searchTerm) {
+        const accessToken = Spotify.getAccessToken();
+        const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`,{
+            method: 'GET',
+            headers: { 'Authorization' : `Bearer ${accessToken}`}
+        });
+        const data = await response.json();
+        const tracklist = data.tracks.items.map(track => {
+             return {
+                 uri: track.uri,
+                 name: track.name,
+                 artist: track.artists[0].name,
+                 album: track.album.name
+             };
+         });
+         return tracklist;
+    }
 };
 
 export default Spotify;
