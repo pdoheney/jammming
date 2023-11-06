@@ -15,6 +15,11 @@ const searchResults = [
 ];
 
 function App() {
+
+  //plus/minus symbols to differentiate between adding or removing a song
+  const add = '+';
+  const remove = '-';
+
   //create state for storing playlists and set to empty array
   const [playlistTracks, setPlaylistTracks] = useState([]);
 
@@ -29,13 +34,18 @@ function App() {
     });
   };
 
+  //event handler taht removes a song from playlist when user clicks minus button
+  const removeSong = track => {
+    setPlaylistTracks(prevPlaylist => prevPlaylist.filter(prevPlaylistTrack => prevPlaylistTrack !== track));
+  }
+
   return(
     <>
       <Header />
       <SearchBar />
       <div className='container'>
-        <SearchResults searchResults={searchResults} handleClick={addSong}/>
-        <Playlist playlist={playlistTracks}/>
+        <SearchResults searchResults={searchResults} handleClick={addSong} symbol={add}/>
+        <Playlist playlist={playlistTracks} handleClick={removeSong} symbol={remove}/>
       </div>
     </>
   );
