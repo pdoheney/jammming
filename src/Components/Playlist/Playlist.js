@@ -4,10 +4,11 @@ import Tracklist from "../Tracklist/Tracklist";
 
 import './Playlist.css';
 
-export default function Playlist({playlist, handleClick, symbol}) {
+export default function Playlist({playlist, symbol, playlistTitle, handleClick, handleChange}) {
     return (
         <div className="playlist">
-            <h2>Playlist</h2>
+            <input type="text" name="title" id="title" value={playlistTitle} onChange={handleChange}/>
+            <br />
             <Tracklist tracklist={playlist} handleClick={handleClick} symbol={symbol}/>
             <button>Save to Spotify</button>
         </div>

@@ -22,6 +22,8 @@ function App() {
 
   //create state for storing playlists and set to empty array
   const [playlistTracks, setPlaylistTracks] = useState([]);
+  //create state for storing playlist title
+  const [playlistTitle, setplaylistTitle] = useState('');
 
   //event handler that adds a song to playlist when user clicks the + button
   const addSong = track => {
@@ -34,10 +36,13 @@ function App() {
     });
   };
 
-  //event handler taht removes a song from playlist when user clicks minus button
+  //event handler that removes a song from playlist when user clicks - button
   const removeSong = track => {
     setPlaylistTracks(prevPlaylist => prevPlaylist.filter(prevPlaylistTrack => prevPlaylistTrack !== track));
-  }
+  };
+
+  //event handler that changes the playlist title state when user types into the input
+  const changeTitle = ({target}) => setplaylistTitle(target.value);
 
   return(
     <>
@@ -45,7 +50,12 @@ function App() {
       <SearchBar />
       <div className='container'>
         <SearchResults searchResults={searchResults} handleClick={addSong} symbol={add}/>
-        <Playlist playlist={playlistTracks} handleClick={removeSong} symbol={remove}/>
+        <Playlist 
+          playlist={playlistTracks} 
+          playlistTitle={playlistTitle}
+          symbol={remove}
+          handleClick={removeSong}
+          handleChange={changeTitle}/>
       </div>
     </>
   );
