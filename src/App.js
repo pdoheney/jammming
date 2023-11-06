@@ -18,12 +18,23 @@ function App() {
   //create state for storing playlists and set to empty array
   const [playlistTracks, setPlaylistTracks] = useState([]);
 
+  //event handler that adds a song to playlist when user clicks the + button
+  const addSong = track => {
+    setPlaylistTracks(prevPlaylist => {
+      if(!prevPlaylist.includes(track)) {
+        return [...prevPlaylist, track];
+      } else {
+        return prevPlaylist;
+      }
+    });
+  };
+
   return(
     <>
       <Header />
       <SearchBar />
       <div className='container'>
-        <SearchResults searchResults={searchResults}/>
+        <SearchResults searchResults={searchResults} handleClick={addSong}/>
         <Playlist playlist={playlistTracks}/>
       </div>
     </>
