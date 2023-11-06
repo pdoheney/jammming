@@ -44,6 +44,13 @@ function App() {
   //event handler that changes the playlist title state when user types into the input
   const changeTitle = ({target}) => setplaylistTitle(target.value);
 
+  //event handler for when user clicks on save to Spotify to save playlist to spotify account
+  const savePlaylist = () => {
+    const uriList = playlistTracks.map(track => track.uri);
+    console.log(uriList);
+    setPlaylistTracks([]);
+  };
+
   return(
     <>
       <Header />
@@ -55,7 +62,8 @@ function App() {
           playlistTitle={playlistTitle}
           symbol={remove}
           handleClick={removeSong}
-          handleChange={changeTitle}/>
+          handleChange={changeTitle}
+          handleSave={savePlaylist}/>
       </div>
     </>
   );
