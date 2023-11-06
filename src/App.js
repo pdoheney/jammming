@@ -11,9 +11,9 @@ import './App.css';
 function App() {
 
   //initialize the access token when first rendered
-  useEffect(() => {
-    Spotify.getAccessToken();
-  }, []);
+  // useEffect(() => {
+  // Spotify.getAccessToken();
+  // }, []);
 
   //plus/minus symbols to differentiate between adding or removing a song
   const add = '+';
@@ -25,6 +25,20 @@ function App() {
   const [playlistTitle, setplaylistTitle] = useState('');
   //create state to store the search results from spotify API
   const [searchResults, setSearchResults] = useState([]);
+  //create state to store the search terms
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const searchSpotify = (event) => {
+    event.preventDefault();
+    Spotify.search(searchTerm).then(tracklist => {
+      tracklist.map(track => {
+        setSearchResults(prevTracklist => [...prevTracklist, track]);
+      })
+    });
+  }
+
+  //event handler to update state with what user input 
+  const searchInput = ({target}) => setSearchTerm(target.value); 
 
   //event handler that adds a song to playlist when user clicks the + button
   const addSong = track => {
@@ -55,7 +69,7 @@ function App() {
   return(
     <>
       <Header />
-      <SearchBar />
+      <SearchBar handleClick={searchSpotify} searchTerm={searchTerm} handleChange={searchInput}/>
       <div className='container'>
         <SearchResults searchResults={searchResults} handleClick={addSong} symbol={add}/>
         <Playlist 
