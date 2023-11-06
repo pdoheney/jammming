@@ -1,5 +1,6 @@
 import './App.css';
 import Header from './Components/Header/Header';
+import Playlist from './Components/Playlist/Playlist';
 import SearchBar from './Components/SearchBar/SearchBar';
 import SearchResults from './Components/SearchResults/SearchResults';
 
@@ -15,8 +16,9 @@ function App() {
     <>
       <Header />
       <SearchBar />
-      <div>
+      <div className='container'>
         <SearchResults searchResults={searchResults}/>
+        <Playlist playlist={searchResults}/>
       </div>
     </>
   );
