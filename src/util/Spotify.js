@@ -44,20 +44,28 @@ const Spotify = {
             return [];
         }
 
-        const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`,{
-            method: 'GET',
-            headers: { 'Authorization' : `Bearer ${accessToken}`}
-        });
-        const data = await response.json();
-        const tracklist = data.tracks.items.map(track => {
-             return {
-                 uri: track.uri,
-                 name: track.name,
-                 artist: track.artists[0].name,
-                 album: track.album.name
-             };
-         });
-         return tracklist;
+        try {
+            const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`,{
+                method: 'GET',
+                headers: { 'Authorization' : `Bearer ${accessToken}`}
+            });
+            
+            if(response.ok) {
+                const data = await response.json();
+                const tracklist = data.tracks.items.map(track => {
+                    return {
+                        uri: track.uri,
+                        name: track.name,
+                        artist: track.artists[0].name,
+                        album: track.album.name
+                    };
+                });
+                return tracklist;
+            }
+            throw new Error('Search Request Failed!');
+        } catch(error) {
+            console.log(error);
+        }
     },
 
     async savePlaylist(uriList, name) {
@@ -68,18 +76,18 @@ const Spotify = {
             return;
         }
 
+        //if user did not put in a playlist title set to default new Playlist
+        if(!name) {
+            name = 'New Playlist';
+        }
+
         //get userid from Spotify api
         const userResponse = await fetch('https://api.spotify.com/v1/me', {
             method: 'GET',
             headers: { 'Authorization' : `Bearer ${accessToken}`}
         });
-        const data = await userResponse.json();
-        const userId = data.id;
-
-        //if user did not put in a playlist title set to default new Playlist
-        if(!name) {
-            name = 'New Playlist';
-        }
+        const idResponse = await userResponse.json();
+        const userId = idResponse.id;
 
         //use username to create a new playlist for that user 
         const playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {

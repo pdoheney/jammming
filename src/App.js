@@ -24,8 +24,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const searchSpotify = (event) => {
-    setSearchResults([]);
     event.preventDefault();
+    setSearchResults([]);
+    setSearchTerm('');
     Spotify.search(searchTerm).then(tracklist => {
       tracklist.map(track => {
         setSearchResults(prevTracklist => [...prevTracklist, track]);
