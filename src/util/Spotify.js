@@ -36,8 +36,14 @@ const Spotify = {
             window.location = url;
         }
     },
+
     async search(searchTerm) {
         const accessToken = Spotify.getAccessToken();
+
+        if(!searchTerm) {
+            return [];
+        }
+
         const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`,{
             method: 'GET',
             headers: { 'Authorization' : `Bearer ${accessToken}`}
@@ -56,6 +62,12 @@ const Spotify = {
 
     async savePlaylist(uriList, name) {
         const accessToken = Spotify.getAccessToken();
+
+        //if no songs added then simply exit
+        if(!uriList.length) {
+            return;
+        }
+
         //get userid from Spotify api
         const userResponse = await fetch('https://api.spotify.com/v1/me', {
             method: 'GET',
@@ -69,13 +81,6 @@ const Spotify = {
             name = 'New Playlist';
         }
 
-        //create object for body of post request to create new playlist
-        const playlistData = {
-            name: name,
-            description: 'New Playlst',
-            public: true
-        };
-
         //use username to create a new playlist for that user 
         const playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
             method: 'POST',
@@ -83,27 +88,20 @@ const Spotify = {
                 'Authorization' : `Bearer ${accessToken}`,
                 'Content-Type' : 'application/json'
             }, 
-            body: JSON.stringify(playlistData)
+            body: JSON.stringify({name: name})
         });
         const jsonResponse = await playlistResponse.json();
         const playlistId = jsonResponse.id;
 
-        const uriData = {
-            uris: uriList,
-            position: 0
-        }
-
         //add list of spotify uris to add tracks to playlist
-        const addTracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+        await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(uriData)
+            body: JSON.stringify({uris: uriList})
         });
-        const addJsonResponse = await addTracksResponse.json();
-        console.log(addJsonResponse);
     }
 };
 
