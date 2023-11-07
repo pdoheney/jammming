@@ -58,7 +58,7 @@ function App() {
   //event handler for when user clicks on save to Spotify to save playlist to spotify account
   const savePlaylist = () => {
     const uriList = playlistTracks.map(track => track.uri);
-    console.log(uriList);
+    Spotify.savePlaylist(uriList, playlistTitle);
     setPlaylistTracks([]);
   };
 

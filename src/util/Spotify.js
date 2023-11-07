@@ -14,19 +14,19 @@ const Spotify = {
         //until get to an & symbol
         //the expires in collects all digits after expires_in because it is end of the url string
         const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
-        const expiresInMatch = window.location.href.match(/expires_in=(\d)*/);
+        const expiresInMatch = window.location.href.match(/expires_in=([\d]*)/);
         //if both are truthy
         if(accessTokenMatch && expiresInMatch) {
             //match method returns an array where necessary info is second element
             accessToken = accessTokenMatch[1];
-            localStorage.setItem('accessToken', accessToken)
+            localStorage.setItem('accessToken', accessToken);
             //must convert string to number and convert seconds to milliseconds
             const expiresIn = +expiresInMatch[1] * 1000;
             //clear search parameters
             window.history.pushState({}, null, '/');
             //set timer to remove the accessToken when API expires per Spotify 
             window.setTimeout(() => {
-                localStorage.removeItem('access_Token');
+                localStorage.removeItem('accessToken');
             }, expiresIn);
             return accessToken;
         } else {
@@ -52,6 +52,58 @@ const Spotify = {
              };
          });
          return tracklist;
+    },
+
+    async savePlaylist(uriList, name) {
+        const accessToken = Spotify.getAccessToken();
+        //get userid from Spotify api
+        const userResponse = await fetch('https://api.spotify.com/v1/me', {
+            method: 'GET',
+            headers: { 'Authorization' : `Bearer ${accessToken}`}
+        });
+        const data = await userResponse.json();
+        const userId = data.id;
+
+        //if user did not put in a playlist title set to default new Playlist
+        if(!name) {
+            name = 'New Playlist';
+        }
+
+        //create object for body of post request to create new playlist
+        const playlistData = {
+            name: name,
+            description: 'New Playlst',
+            public: true
+        };
+
+        //use username to create a new playlist for that user 
+        const playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+            method: 'POST',
+            headers: { 
+                'Authorization' : `Bearer ${accessToken}`,
+                'Content-Type' : 'application/json'
+            }, 
+            body: JSON.stringify(playlistData)
+        });
+        const jsonResponse = await playlistResponse.json();
+        const playlistId = jsonResponse.id;
+
+        const uriData = {
+            uris: uriList,
+            position: 0
+        }
+
+        //add list of spotify uris to add tracks to playlist
+        const addTracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(uriData)
+        });
+        const addJsonResponse = await addTracksResponse.json();
+        console.log(addJsonResponse);
     }
 };
 
