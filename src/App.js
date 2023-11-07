@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Header from './Components/Header/Header';
 import Playlist from './Components/Playlist/Playlist';
@@ -22,6 +22,10 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   //create state to store the search terms
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    Spotify.getAccessToken();
+  },[]);
 
   const searchSpotify = (event) => {
     event.preventDefault();
