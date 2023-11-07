@@ -1,6 +1,13 @@
 .header {
     text-align: center;
-    border-bottom: 1px solid #000;
     font-size: 1.5rem;
     padding: 1rem;
+    background-color: #3531A4;
+}
+h1 {
+    color: #f9f9f9;
+}
+
+span {
+    color: #E3BD00;
 }
