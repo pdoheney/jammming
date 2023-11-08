@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     Spotify.getAccessToken();
-  },[localStorage.getItem('accessToken')]);
+  },[]);
 
   const searchSpotify = (event) => {
     event.preventDefault();
