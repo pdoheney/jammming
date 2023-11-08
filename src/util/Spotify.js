@@ -57,7 +57,7 @@ const Spotify = {
                 });
                 return tracklist;
             }
-            throw new Error('Search Request Failed!');
+            throw new Error(response);
         } catch(error) {
             console.log(error);
             return [];
