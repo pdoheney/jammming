@@ -23,9 +23,9 @@ function App() {
   //create state to store the search terms
   const [searchTerm, setSearchTerm] = useState('');
 
-   useEffect(() => {
-     Spotify.getAccessToken();
-   },[]);
+  useEffect(() => {
+    Spotify.getAccessToken();
+  },[]);
 
   const searchSpotify = (event) => {
     event.preventDefault();
