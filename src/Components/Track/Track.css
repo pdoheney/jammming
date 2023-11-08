@@ -2,9 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid black;
-    width: 15rem;
-    padding: 0.5rem;
+    border-bottom: 1px solid #fff;
+    max-width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 0.25rem;
 }
 
 .track-button {
@@ -13,8 +14,9 @@
     height: 1.25rem;
     width: 1.25rem;
     border-radius: 50%;
+    color: #fff;
 }
 
 .track-button:hover {
-    border: 1px solid black;
+    border: 1px solid #fff;
 }

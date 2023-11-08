@@ -15,11 +15,14 @@ form {
 }
 
 #search {
-    height: 1.75rem;
-    width: 4rem;
+    font-size: inherit;
+    height: 1.95rem;
+    width: 4.5rem;
     border-radius: 2rem;
     border: transparent;
-    box-shadow: 0.15rem 0.15rem 0.1rem #3a3535;
+    box-shadow: 0.1rem 0.1rem 0.2rem #203320;
+    background-color: #2D15A3;
+    color: #fff;
 }
 
 #search:hover {
