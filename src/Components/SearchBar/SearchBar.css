@@ -39,3 +39,9 @@ form {
     box-shadow: 0 0 white;
     transform: translateX(0.15rem) translateY(0.2rem);
 }
+
+@media only screen and (max-width: 768px) {
+    #search-input {
+        width: 35%;
+    }
+}
