@@ -5,7 +5,7 @@ import './Track.css';
 export default function Track({track, handleClick, symbol}) {
     return (
         <div className="track">
-            <div>
+            <div className="track-info">
                 <h3>{track.name}</h3>
                 <p>{track.artist} | {track.album}</p>
             </div>

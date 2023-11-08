@@ -1,5 +1,43 @@
 .playlist {
-    border: 1px solid black;
-    background-color: tomato;
-    padding: 0.5rem;
+    padding: 0.75rem;
+    min-width: 15rem;
+    max-width: 20rem;
+    min-height: 35rem;
+    margin-bottom: 1rem;
+    background-color: #2D15A3;
+    color: #fff;
+}
+
+hr {
+    margin: 0;
+}
+
+#title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    width: 100%;
+    height: 1.75rem;
+}
+
+#title:focus {
+    border: none;
+    outline: none;
+}
+
+#save-button {
+    font-weight: bold;
+    background-color: #18A315;
+    height: 1.75rem;
+    width: 6rem;
+    border-radius: 3rem;
+    border: transparent;
+    margin-top: 0.75rem;
+}
+
+#save-button:hover {
+    cursor: pointer;
 }

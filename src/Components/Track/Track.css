@@ -4,8 +4,16 @@
     justify-content: space-between;
     border-bottom: 1px solid #fff;
     max-width: 100%;
-    padding: 0.75rem;
+    padding: 0.75rem 0;
     margin-bottom: 0.25rem;
+}
+
+.track h3 {
+    margin-bottom: 0.45rem;
+}
+
+.track p {
+    font-size: 0.8rem;
 }
 
 .track-button {
@@ -15,6 +23,7 @@
     width: 1.25rem;
     border-radius: 50%;
     color: #fff;
+    font-size: 1rem;
 }
 
 .track-button:hover {

@@ -7,10 +7,16 @@ import './Playlist.css';
 export default function Playlist({playlist, symbol, playlistTitle, handleClick, handleChange, handleSave}) {
     return (
         <div className="playlist">
-            <input type="text" name="title" id="title" value={playlistTitle} onChange={handleChange}/>
-            <br />
+            <input 
+                type="text" 
+                name="title" 
+                id="title" 
+                value={playlistTitle} 
+                onChange={handleChange} 
+                placeholder="Enter Playlist Title"/>
+            <hr />
             <Tracklist tracklist={playlist} handleClick={handleClick} symbol={symbol}/>
-            <button onClick={handleSave}>Save to Spotify</button>
+            <button onClick={handleSave} id="save-button">Save to Spotify</button>
         </div>
     );
 }
