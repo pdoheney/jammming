@@ -34,11 +34,11 @@ const Spotify = {
     },
 
     async search(searchTerm) {
-        const accessToken = Spotify.getAccessToken();
-
         if(!searchTerm) {
             return [];
         }
+        
+        const accessToken = Spotify.getAccessToken();
 
         try {
             const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`,{
@@ -65,8 +65,6 @@ const Spotify = {
     },
 
     async savePlaylist(uriList, name) {
-        const accessToken = Spotify.getAccessToken();
-
         if(!uriList.length) {
             return;
         }
@@ -75,12 +73,11 @@ const Spotify = {
             name = 'New Playlist';
         }
 
-        //set id variables to be used in other requests
-        let userId;
-        let playlistId;
+        const accessToken = Spotify.getAccessToken();
 
         //get userid from Spotify api
         try {
+            let userId;
             const userResponse = await fetch('https://api.spotify.com/v1/me', {
                 method: 'GET',
                 headers: { 'Authorization' : `Bearer ${accessToken}`}
@@ -89,14 +86,11 @@ const Spotify = {
                 const idData = await userResponse.json();
                 userId = idData.id;
             } else {
-                throw new Error('User information request failed!');
+                throw new Error(userResponse);
             }
-        } catch(error) {
-            console.log(error);
-        }
 
-        //use username to create a new playlist for that user 
-        try {
+            //use username to create a new playlist for that user 
+            let playlistId;
             const playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
                 method: 'POST',
                 headers: { 
@@ -109,16 +103,11 @@ const Spotify = {
                 const playlistData = await playlistResponse.json();
                 playlistId = playlistData.id;
             } else {
-                throw new Error('Playlist creation request failed!');
+                throw new Error(playlistResponse);
             }
-        } catch(error) {
-            console.log(error);
-        }
         
-
-        //add list of spotify uris to add tracks to playlist
-        try {
-            const successResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+            //add list of spotify uris to add tracks to playlist
+            const tracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -126,10 +115,10 @@ const Spotify = {
                 },
                 body: JSON.stringify({uris: uriList})
             });
-            if(successResponse.ok) {
+            if(tracksResponse.ok) {
                 console.log('Success! Playlist created and songs have been added!');
             } else {
-                throw new Error('Add tracks request failed!');
+                throw new Error(tracksResponse);
             }
         } catch(error) {
             console.log(error);
