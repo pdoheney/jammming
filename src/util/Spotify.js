@@ -47,15 +47,15 @@ const Spotify = {
             });
             if(response.ok) {
                 const data = await response.json();
-                const tracklist = data.tracks.items.map(track => {
+                return data.tracks.items.map(track => {
                     return {
+                        id: track.id,
                         uri: track.uri,
                         name: track.name,
                         artist: track.artists[0].name,
                         album: track.album.name
                     };
                 });
-                return tracklist;
             }
             throw new Error(response);
         } catch(error) {
