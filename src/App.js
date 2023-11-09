@@ -57,9 +57,9 @@ function App() {
   const changeTitle = ({target}) => setplaylistTitle(target.value);
 
   //event handler for when user clicks on save to Spotify to save playlist to spotify account
-  const savePlaylist = () => {
+  const createPlaylist = () => {
     const uriList = playlistTracks.map(track => track.uri);
-    Spotify.savePlaylist(uriList, playlistTitle);
+    Spotify.createPlaylist(uriList, playlistTitle);
     setPlaylistTracks([]);
     setplaylistTitle('');
   };
@@ -76,7 +76,7 @@ function App() {
           symbol={remove}
           handleClick={removeSong}
           handleChange={changeTitle}
-          handleSave={savePlaylist}/>
+          handleSave={createPlaylist}/>
       </div>
     </>
   );

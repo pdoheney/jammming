@@ -64,7 +64,7 @@ const Spotify = {
         }
     },
 
-    async savePlaylist(uriList, name) {
+    async createPlaylist(uriList, name) {
         if(!uriList.length) {
             return;
         }
