@@ -15,9 +15,9 @@ function App() {
   const remove = '-';
 
   //create state for storing playlists and set to empty array
-  const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [newPlaylistTracks, setNewPlaylistTracks] = useState([]);
   //create state for storing playlist title
-  const [playlistTitle, setplaylistTitle] = useState('');
+  const [newPlaylistTitle, setNewPlaylistTitle] = useState('');
   //create state to store the search results from spotify API
   const [searchResults, setSearchResults] = useState([]);
   //create state to store the search terms
@@ -39,7 +39,7 @@ function App() {
 
   //event handler that adds a song to playlist when user clicks the + button
   const addSong = track => {
-    setPlaylistTracks(prevPlaylist => {
+    setNewPlaylistTracks(prevPlaylist => {
       if(!prevPlaylist.includes(track)) {
         return [...prevPlaylist, track];
       } else {
@@ -50,18 +50,18 @@ function App() {
 
   //event handler that removes a song from playlist when user clicks - button
   const removeSong = track => {
-    setPlaylistTracks(prevPlaylist => prevPlaylist.filter(prevPlaylistTrack => prevPlaylistTrack !== track));
+    setNewPlaylistTracks(prevPlaylist => prevPlaylist.filter(prevPlaylistTrack => prevPlaylistTrack !== track));
   };
 
   //event handler that changes the playlist title state when user types into the input
-  const changeTitle = ({target}) => setplaylistTitle(target.value);
+  const changeTitle = ({target}) => setNewPlaylistTitle(target.value);
 
   //event handler for when user clicks on save to Spotify to save playlist to spotify account
   const createPlaylist = () => {
-    const uriList = playlistTracks.map(track => track.uri);
-    Spotify.createPlaylist(uriList, playlistTitle);
-    setPlaylistTracks([]);
-    setplaylistTitle('');
+    const uriList = newPlaylistTracks.map(track => track.uri);
+    Spotify.createPlaylist(uriList, newPlaylistTitle);
+    setNewPlaylistTracks([]);
+    setNewPlaylistTitle('');
   };
 
   return(
@@ -71,8 +71,8 @@ function App() {
       <div className='container'>
         <SearchResults searchResults={searchResults} handleClick={addSong} symbol={add}/>
         <Playlist 
-          playlist={playlistTracks} 
-          playlistTitle={playlistTitle}
+          playlist={newPlaylistTracks} 
+          playlistTitle={newPlaylistTitle}
           symbol={remove}
           handleClick={removeSong}
           handleChange={changeTitle}
