@@ -57,7 +57,7 @@ const Spotify = {
                     };
                 });
             }
-            throw new Error(response);
+            throw new Error('Search request failed!');
         } catch(error) {
             console.log(error);
             return [];
@@ -86,7 +86,7 @@ const Spotify = {
                 const idData = await userResponse.json();
                 userId = idData.id;
             } else {
-                throw new Error(userResponse);
+                throw new Error('User Id request failed!');
             }
 
             //use username to create a new playlist for that user 
@@ -103,7 +103,7 @@ const Spotify = {
                 const playlistData = await playlistResponse.json();
                 playlistId = playlistData.id;
             } else {
-                throw new Error(playlistResponse);
+                throw new Error('Create playlist request failed!');
             }
         
             //add list of spotify uris to add tracks to playlist
@@ -118,7 +118,7 @@ const Spotify = {
             if(tracksResponse.ok) {
                 console.log('Success! Playlist created and songs have been added!');
             } else {
-                throw new Error(tracksResponse);
+                throw new Error('Add tracks to new playlist request failed!');
             }
         } catch(error) {
             console.log(error);
