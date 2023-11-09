@@ -14,13 +14,11 @@ function App() {
   const add = '+';
   const remove = '-';
 
-  //create state for storing playlists and set to empty array
+  //state to store new playlist tracks and title
   const [newPlaylistTracks, setNewPlaylistTracks] = useState([]);
-  //create state for storing playlist title
   const [newPlaylistTitle, setNewPlaylistTitle] = useState('');
-  //create state to store the search results from spotify API
+  //state to user search input and results from Sporify API
   const [searchResults, setSearchResults] = useState([]);
-  //create state to store the search terms
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -40,7 +38,7 @@ function App() {
   //event handler that adds a song to playlist when user clicks the + button
   const addSong = track => {
     setNewPlaylistTracks(prevPlaylist => {
-      if(!prevPlaylist.includes(track)) {
+      if(!prevPlaylist.some(playlistTrack => playlistTrack.id === track.id)) {
         return [...prevPlaylist, track];
       } else {
         return prevPlaylist;
@@ -50,7 +48,7 @@ function App() {
 
   //event handler that removes a song from playlist when user clicks - button
   const removeSong = track => {
-    setNewPlaylistTracks(prevPlaylist => prevPlaylist.filter(prevPlaylistTrack => prevPlaylistTrack !== track));
+    setNewPlaylistTracks(prevPlaylist => prevPlaylist.filter(prevPlaylistTrack => prevPlaylistTrack.id !== track.id));
   };
 
   //event handler that changes the playlist title state when user types into the input
