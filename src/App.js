@@ -27,12 +27,11 @@ function App() {
     Spotify.getAccessToken();
   },[]);
 
-  const searchSpotify = (event) => {
+  const searchSpotify = async (event) => {
     event.preventDefault();
-    Spotify.search(searchTerm).then(tracklist => {
-      setSearchResults([...tracklist]);
-      setSearchTerm('');
-    });
+    const searchList = await Spotify.search(searchTerm)
+    setSearchResults([...searchList]);
+    setSearchTerm('');
   };
 
   //event handler to update state with what user input 
