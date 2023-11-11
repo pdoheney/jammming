@@ -1,8 +1,34 @@
-#playlist-container {
+.playlist-container {
+    padding: 0.75rem;
     min-width: 15rem;
     max-width: 20rem;
     min-height: 35rem;
     margin-bottom: 1rem;
     background-color: #2D15A3;
     color: #fff;
+}
+
+.tabs {
+    background-color: #fff;
+}
+
+.tab {
+    height: 2rem;
+    width: 6rem;
+    background-color: #5a3ee6;
+    border: none;
+    color: #fff;
+    border-right: 1px solid #fff;
+}
+
+.tab:hover {
+    cursor: pointer;
+    font-size: 0.75rem;
+    height: 2.1rem
+}
+
+.active {
+    background-color: #2D15A3;
+    border: none;
+    font-weight: bold;
 }

@@ -8,7 +8,7 @@ export default function PlaylistContainer(props) {
     let editMode = false;
     
     return (
-        <div id="playlist-container">
+        <div>
             <div className="tabs">
                 <button className="tab">{editMode ? props.playlistTitle : 'Create Playlist'}</button>
                 <button className="tab">Playlists</button>
