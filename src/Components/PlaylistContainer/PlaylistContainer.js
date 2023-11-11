@@ -1,8 +1,15 @@
 import React from "react";
 
 import CreateEdit from "../CreateEdit/CreateEdit";
+import Playlists from "../Playlists/Playlists";
 
 import './PlaylistContainer.css';
+
+const playlists = [
+    {id: 0, name: 'Playlist1'},
+    {id: 1, name: 'Playlist2'},
+    {id: 2, name: 'Playlist3'}
+];
 
 export default function PlaylistContainer(props) {
     let editMode = false;
@@ -26,6 +33,7 @@ export default function PlaylistContainer(props) {
                 handleClick={props.removeSong}
                 handleChange={props.changeTitle}
                 handleSave={props.createPlaylist}/>
+            <Playlists playlists={playlists} />
         </div>  
     );
 }
