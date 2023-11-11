@@ -14,7 +14,8 @@
 
 .tab {
     height: 2rem;
-    width: 6rem;
+    min-width: 6rem;
+    max-width: 8rem;
     background-color: #5a3ee6;
     border: none;
     color: #fff;

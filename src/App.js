@@ -22,6 +22,8 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   //state to hold user's playlists 
   const [playlists, setPlaylists] = useState([]);
+  //state to hold if currently editing playlist
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     Spotify.getAccessToken();
@@ -73,6 +75,7 @@ function App() {
     const playlistTracks = await Spotify.getPlaylistTracks(playlistId);
     setNewPlaylistTitle(playlistTitle);
     setNewPlaylistTracks([...playlistTracks]);
+    setEditMode(true);
   }
 
   return(
@@ -86,6 +89,7 @@ function App() {
           playlistTitle={newPlaylistTitle} 
           playlists={playlists}
           symbol={remove} 
+          editMode={editMode}
           removeSong={removeSong}
           changeTitle={changeTitle}
           createPlaylist={createPlaylist}
