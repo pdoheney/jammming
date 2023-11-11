@@ -1,0 +1,9 @@
+.playlist {
+    border-bottom: 1px solid white;
+    padding: 0.5rem 0;
+}
+
+.playlist:hover {
+    background-color: #2D15FC;
+    cursor: pointer;
+}
