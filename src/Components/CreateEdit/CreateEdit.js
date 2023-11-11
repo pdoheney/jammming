@@ -2,7 +2,7 @@ import React from "react";
 
 import Tracklist from "../Tracklist/Tracklist";
 
-import './Playlist.css';
+import './CreateEdit.css';
 
 export default function CreateEdit({playlist, symbol, playlistTitle, handleClick, handleChange, handleSave}) {
     return (

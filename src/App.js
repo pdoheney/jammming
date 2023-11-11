@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Header from './Components/Header/Header';
-import CreateEdit from './Components/Playlist/Playlist';
+import CreateEdit from './Components/CreateEdit/CreateEdit';
 import SearchBar from './Components/SearchBar/SearchBar';
 import SearchResults from './Components/SearchResults/SearchResults';
 import Spotify from './util/Spotify';
