@@ -19,16 +19,18 @@
     border: none;
     color: #fff;
     border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
 }
 
 .tab:hover {
     cursor: pointer;
     font-size: 0.75rem;
-    height: 2.1rem
+    height: 2.2rem
 }
 
 .active {
     background-color: #2D15A3;
-    border: none;
     font-weight: bold;
+    border-bottom: none;
+    height: 2.1rem;
 }

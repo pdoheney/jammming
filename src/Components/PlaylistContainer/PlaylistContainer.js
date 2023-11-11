@@ -6,12 +6,18 @@ import './PlaylistContainer.css';
 
 export default function PlaylistContainer(props) {
     let editMode = false;
+
+    const showTab = (event) => {
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        event.target.classList.add('active');
+    }
     
     return (
         <div>
             <div className="tabs">
-                <button className="tab">{editMode ? props.playlistTitle : 'Create Playlist'}</button>
-                <button className="tab">Playlists</button>
+                <button className="tab active" id="create" onClick={showTab}>{editMode ? props.playlistTitle : 'Create Playlist'}</button>
+                <button className="tab" id="playlists" onClick={showTab}>Playlists</button>
             </div>
             <CreateEdit 
                 playlist={props.playlistTracks} 
