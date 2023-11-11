@@ -1,6 +1,5 @@
-const clientId = '';
+const clientId = '64ef146580e74b1d94f07df4322263ae';
 const redirectURL = 'http://localhost:3000/';
-let accessToken;
 
 const Spotify = {
     getAccessToken() {
@@ -10,7 +9,7 @@ const Spotify = {
             localStorage.clear();
         }
         
-        accessToken = localStorage.getItem('accessToken');
+        let accessToken = localStorage.getItem('accessToken');
         if(accessToken) {
             return accessToken;
         }
@@ -122,6 +121,32 @@ const Spotify = {
             }
         } catch(error) {
             console.log(error);
+        }
+    },
+
+    async getPlaylists() {
+        const accessToken = Spotify.getAccessToken();
+
+        try {
+            const playlistsResponse = await fetch('https://api.spotify.com/v1/me/playlists', {
+                method: 'GET',
+                headers: {'Authorization': `Bearer ${accessToken}`}
+            });
+            if(playlistsResponse.ok) {
+                const playlistsData = await playlistsResponse.json();
+                return playlistsData.items.map(playlist => {
+                    return {
+                        id: playlist.id,
+                        snapshotId: playlist.snapshot_id,
+                        name: playlist.name,
+                        uri: playlist.uri
+                    };
+                });
+            }
+            throw new Error('Playlists request failed!');
+        } catch(error) {
+            console.log(error);
+            return [];
         }
     }
 };

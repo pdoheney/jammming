@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import CreateEdit from "../CreateEdit/CreateEdit";
 import Playlists from "../Playlists/Playlists";
 
 import './PlaylistContainer.css';
 
-const playlists = [
-    {id: 0, name: 'Playlist1'},
-    {id: 1, name: 'Playlist2'},
-    {id: 2, name: 'Playlist3'}
-];
-
 export default function PlaylistContainer(props) {
     let editMode = false;
 
     const [showPlaylists, setShowPlaylists] = useState(false);
+
+    useEffect(() => {
+        if(showPlaylists === true) {
+            props.getPlaylists();
+        }
+    },[showPlaylists]);
 
     const showTab = (event) => {
         const tabs = document.querySelectorAll('.tab');
@@ -30,7 +30,7 @@ export default function PlaylistContainer(props) {
                 <button className="tab active" id="create" onClick={showTab}>{editMode ? props.playlistTitle : 'Create Playlist'}</button>
                 <button className="tab" id="playlists" onClick={showTab}>Playlists</button>
             </div>
-            {showPlaylists ? <Playlists playlists={playlists} /> 
+            {showPlaylists ? <Playlists playlists={props.playlists} /> 
                 :
                 <CreateEdit 
                     playlist={props.playlistTracks} 

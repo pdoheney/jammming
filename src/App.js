@@ -20,6 +20,8 @@ function App() {
   //state to user search input and results from Sporify API
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  //state to hold user's playlists 
+  const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
     Spotify.getAccessToken();
@@ -62,6 +64,11 @@ function App() {
     setNewPlaylistTitle('');
   };
 
+  const getPlaylists = async () => {
+    const playlists = await Spotify.getPlaylists();
+    setPlaylists([...playlists])
+  }
+
   return(
     <>
       <Header />
@@ -71,10 +78,12 @@ function App() {
         <PlaylistContainer 
           playlistTracks={newPlaylistTracks} 
           playlistTitle={newPlaylistTitle} 
+          playlists={playlists}
           symbol={remove} 
           removeSong={removeSong}
           changeTitle={changeTitle}
-          createPlaylist={createPlaylist}/>
+          createPlaylist={createPlaylist}
+          getPlaylists={getPlaylists}/>
       </div>
     </>
   );
