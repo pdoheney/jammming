@@ -6,7 +6,7 @@ import './CreateEdit.css';
 
 export default function CreateEdit({playlist, symbol, playlistTitle, handleClick, handleChange, handleSave}) {
     return (
-        <div className="playlist">
+        <div className="create-edit">
             <input 
                 type="text" 
                 name="title" 

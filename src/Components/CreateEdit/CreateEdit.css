@@ -1,11 +1,5 @@
-.playlist {
+.create-edit {
     padding: 0.75rem;
-    min-width: 15rem;
-    max-width: 20rem;
-    min-height: 35rem;
-    margin-bottom: 1rem;
-    background-color: #2D15A3;
-    color: #fff;
 }
 
 hr {

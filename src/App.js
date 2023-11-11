@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Header from './Components/Header/Header';
-import CreateEdit from './Components/CreateEdit/CreateEdit';
+import PlaylistContainer from './Components/PlaylistContainer/PlaylistContainer';
 import SearchBar from './Components/SearchBar/SearchBar';
 import SearchResults from './Components/SearchResults/SearchResults';
 import Spotify from './util/Spotify';
@@ -68,13 +68,13 @@ function App() {
       <SearchBar handleClick={searchSpotify} searchTerm={searchTerm} handleChange={searchInput}/>
       <div className='container'>
         <SearchResults searchResults={searchResults} handleClick={addSong} symbol={add}/>
-        <CreateEdit 
-          playlist={newPlaylistTracks} 
-          playlistTitle={newPlaylistTitle}
-          symbol={remove}
-          handleClick={removeSong}
-          handleChange={changeTitle}
-          handleSave={createPlaylist}/>
+        <PlaylistContainer 
+          playlistTracks={newPlaylistTracks} 
+          playlistTitle={newPlaylistTitle} 
+          symbol={remove} 
+          removeSong={removeSong}
+          changeTitle={changeTitle}
+          createPlaylist={createPlaylist}/>
       </div>
     </>
   );
