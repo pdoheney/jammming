@@ -4,7 +4,7 @@ import Tracklist from "../Tracklist/Tracklist";
 
 import './Playlist.css';
 
-export default function Playlist({playlist, symbol, playlistTitle, handleClick, handleChange, handleSave}) {
+export default function CreateEdit({playlist, symbol, playlistTitle, handleClick, handleChange, handleSave}) {
     return (
         <div className="playlist">
             <input 
