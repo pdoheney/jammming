@@ -148,6 +148,33 @@ const Spotify = {
             console.log(error);
             return [];
         }
+    }, 
+
+    async getPlaylistTracks(playlist_id) {
+        const accessToken = Spotify.getAccessToken();
+
+        try {
+            const tracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
+                method: 'GET',
+                headers: {'Authorization': `Bearer ${accessToken}`}
+            });
+            if(tracksResponse.ok) {
+                const tracksData = await tracksResponse.json();
+                return tracksData.items.map(track => {
+                    return {
+                        id: track.track.id,
+                        uri: track.track.uri,
+                        name: track.track.name,
+                        album: track.track.album.name,
+                        artist: track.track.artists[0].name
+                    }
+                });
+            }
+            throw new Error('Playlist Tracks request failed!');
+        } catch(error) {
+            console.log(error);
+            return [];
+        }
     }
 };
 

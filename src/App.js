@@ -69,6 +69,12 @@ function App() {
     setPlaylists([...playlists])
   }
 
+  const getPlaylistTracks = async (playlistId, playlistTitle) => {
+    const playlistTracks = await Spotify.getPlaylistTracks(playlistId);
+    setNewPlaylistTitle(playlistTitle);
+    setNewPlaylistTracks([...playlistTracks]);
+  }
+
   return(
     <>
       <Header />
@@ -83,7 +89,8 @@ function App() {
           removeSong={removeSong}
           changeTitle={changeTitle}
           createPlaylist={createPlaylist}
-          getPlaylists={getPlaylists}/>
+          getPlaylists={getPlaylists}
+          getPlaylistTracks={getPlaylistTracks}/>
       </div>
     </>
   );
