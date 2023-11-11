@@ -6,7 +6,6 @@ import Playlists from "../Playlists/Playlists";
 import './PlaylistContainer.css';
 
 export default function PlaylistContainer(props) {
-    let editMode = false;
 
     const [showPlaylists, setShowPlaylists] = useState(false);
 
@@ -25,7 +24,7 @@ export default function PlaylistContainer(props) {
     }
     
     return (
-        <div>
+        <div id='container'>
             <div className="tabs">
                 <button className="tab active" id="create" onClick={showTab}>{props.editMode ? props.playlistTitle : 'Create Playlist'}</button>
                 <button className="tab" id="playlists" onClick={showTab}>Playlists</button>
@@ -39,6 +38,7 @@ export default function PlaylistContainer(props) {
                     handleClick={props.removeSong}
                     handleChange={props.changeTitle}
                     handleSave={props.createPlaylist}/>}
+            {props.editMode && !showPlaylists ? <span id="switch" onClick={props.switchCreate}>Switch to Create Playlist</span> : null}
         </div>  
     );
 }

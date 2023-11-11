@@ -58,6 +58,12 @@ function App() {
   //event handler that changes the playlist title state when user types into the input
   const changeTitle = ({target}) => setNewPlaylistTitle(target.value);
 
+  const switchCreate = () => {
+    setEditMode(false);
+    setNewPlaylistTitle('');
+    setNewPlaylistTracks([]);
+  }
+
   //event handler for when user clicks on save to Spotify to save playlist to spotify account
   const createPlaylist = () => {
     const uriList = newPlaylistTracks.map(track => track.uri);
@@ -94,7 +100,8 @@ function App() {
           changeTitle={changeTitle}
           createPlaylist={createPlaylist}
           getPlaylists={getPlaylists}
-          getPlaylistTracks={getPlaylistTracks}/>
+          getPlaylistTracks={getPlaylistTracks}
+          switchCreate={switchCreate}/>
       </div>
     </>
   );
