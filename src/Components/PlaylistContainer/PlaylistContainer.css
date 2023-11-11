@@ -25,7 +25,8 @@
 .tab:hover {
     cursor: pointer;
     font-size: 0.75rem;
-    height: 2.2rem
+    height: 2.2rem;
+    width: 6.2rem;
 }
 
 .active {
