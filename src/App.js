@@ -24,6 +24,9 @@ function App() {
   const [playlists, setPlaylists] = useState([]);
   //state to hold if currently editing playlist
   const [editMode, setEditMode] = useState(false);
+  //state to hold the id of playlist being edited and the snapshot id
+  const [playlistId, setPlaylistId] = useState('');
+  const [snapshotId, setSnapshotId] = useState('');
 
   useEffect(() => {
     Spotify.getAccessToken();
@@ -77,8 +80,10 @@ function App() {
     setPlaylists([...playlists])
   }
 
-  const getPlaylistTracks = async (playlistId, playlistTitle) => {
-    const playlistTracks = await Spotify.getPlaylistTracks(playlistId);
+  const getPlaylistTracks = async (playlist_id, playlistTitle, snapshot_id) => {
+    setPlaylistId(playlist_id);
+    setSnapshotId(snapshot_id);
+    const playlistTracks = await Spotify.getPlaylistTracks(playlist_id);
     setNewPlaylistTitle(playlistTitle);
     setNewPlaylistTracks([...playlistTracks]);
     setEditMode(true);

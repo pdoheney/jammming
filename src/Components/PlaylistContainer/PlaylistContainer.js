@@ -10,15 +10,14 @@ export default function PlaylistContainer(props) {
     const [showPlaylists, setShowPlaylists] = useState(false);
 
     useEffect(() => {
-        if(showPlaylists === true) {
+        if(showPlaylists) {
             props.getPlaylists();
         }
     },[showPlaylists]);
 
     const showTab = (event) => {
         const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => tab.classList.remove('active'));
-        event.target.classList.add('active');
+        tabs.forEach(tab => tab.id === event.target.id ? tab.classList.add('active') : tab.classList.remove('active'));
 
         if(event.target.id === 'playlists') {
             setShowPlaylists(true);
@@ -45,7 +44,9 @@ export default function PlaylistContainer(props) {
                     symbol={props.symbol}
                     handleClick={props.removeSong}
                     handleChange={props.changeTitle}
-                    handleSave={props.createPlaylist}/>}
+                    handleSave={props.createPlaylist}
+                    editMode={props.editMode}/>
+                    }
             {props.editMode && !showPlaylists ? <span id="switch" onClick={props.switchCreate}>Switch to Create Playlist</span> : null}
         </div>  
     );

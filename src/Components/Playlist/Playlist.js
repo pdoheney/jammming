@@ -5,7 +5,7 @@ import './Playlist.css';
 export default function Playlist({playlist, clickHandler, setShowPlaylists}) {
     return (
         <div className="playlist" onClick={() => {
-            clickHandler(playlist.id, playlist.name);
+            clickHandler(playlist.id, playlist.name, playlist.snapshotId);
             setShowPlaylists(false);
         }}>
             <h3>{playlist.name}</h3>
