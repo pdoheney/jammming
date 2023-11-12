@@ -70,6 +70,9 @@ function App() {
     setEditMode(false);
     setNewPlaylistTitle('');
     setNewPlaylistTracks([]);
+    setOriginalUris([]);
+    setPlaylistId('');
+    setSnapshotId('');
   }
 
   //event handler for when user clicks on save to Spotify to save playlist to spotify account
@@ -82,7 +85,14 @@ function App() {
 
   //event handler to update the tracks of an existing playlist in spotify api
   const updatePlaylist = async () => {
-    const update = await Spotify.updatePlaylist(playlistId, snapshotId, originalUris);
+    const newUris = newPlaylistTracks.map(track => track.uri);
+    const newSnapshotId = await Spotify.updatePlaylist(playlistId, snapshotId, originalUris, newUris);
+    if(newSnapshotId) {
+      setSnapshotId(newSnapshotId);
+      setOriginalUris(newPlaylistTracks.map(track => {
+        return {uri: track.uri};
+      }));
+    }
   }
 
   //event handler to get a user's playlists from apotify api

@@ -123,11 +123,9 @@ const Spotify = {
                 },
                 body: JSON.stringify({uris: uriList})
             });
-            if(tracksResponse.ok) {
-                console.log('Success! Playlist created and songs have been added!');
-            } else {
+            if(!tracksResponse.ok) {
                 throw new Error('Add tracks to new playlist request failed!');
-            }
+            } 
         } catch(error) {
             console.log(error);
         }
@@ -187,7 +185,7 @@ const Spotify = {
     },
 
     //method to update an existing playlists tracks
-    async updatePlaylist(playlist_id, snapshot_id, original_uris) {
+    async updatePlaylist(playlist_id, snapshot_id, original_uris, new_tracks) {
         const accessToken = Spotify.getAccessToken();
 
         try {
@@ -203,11 +201,24 @@ const Spotify = {
                     snapshot_id: snapshot_id
                 })
             });
-            if(removeResponse.ok) {
-                console.log(removeResponse);
-            } else {
+            if(!removeResponse.ok) {
                 throw new Error('Delete Tracks request failed!');
             }
+
+            //add the new tracks to the existing playlist
+            const addResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({uris: new_tracks})
+            });
+            if(addResponse.ok) {
+                const addData = await addResponse.json();
+                return addData.snapshot_id;
+            }
+            throw new Error('Add tracks request failed!');
         } catch(error) {
             console.log(error);
         }
