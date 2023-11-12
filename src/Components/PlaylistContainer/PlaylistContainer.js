@@ -26,7 +26,7 @@ export default function PlaylistContainer(props) {
             }
         } else {
             setShowPlaylists(false);
-            props.setEditMode(true);
+            props.playlistTitle ? props.setEditMode(true) : props.setEditMode(false);
         }
     }
     
