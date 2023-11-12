@@ -1,49 +1,55 @@
-const clientId = '64ef146580e74b1d94f07df4322263ae';
+const clientId = '';
 const redirectURL = 'http://localhost:3000/';
 
 const Spotify = {
+    //get spotify access token method
     getAccessToken() {
         //if the time has passed for the token expiration then clear the local storage
         const clearTime = localStorage.getItem('expiresIn');
         if(Date.now() > clearTime) {
             localStorage.clear();
         }
-        
+        //access local storage and if access Token present return
         let accessToken = localStorage.getItem('accessToken');
         if(accessToken) {
             return accessToken;
         }
-
+        //get access token and expiration time from url per spotify api
         const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
         const expiresInMatch = window.location.href.match(/expires_in=([\d]*)/);
+        //if both are present in url
         if(accessTokenMatch && expiresInMatch) {
-            //match method returns an array where necessary info is second element
+            //store access token in local storage
             accessToken = accessTokenMatch[1];
             localStorage.setItem('accessToken', accessToken);
-            //must convert string to number and convert seconds to milliseconds
+            //convert the expiration time to into miliseconds from the current time and store
             const expiresIn = (+expiresInMatch[1] * 1000) + Date.now();
             localStorage.setItem('expiresIn', expiresIn);
             //clear search parameters
             window.history.pushState({}, null, '/');
             return accessToken;
         } else {
+            //reach out to sporify api to get the access token and expiration date
             const url = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=playlist-modify-public&redirect_uri=${redirectURL}`;
             window.location = url;
         }
     },
 
+    //search tracks in spotify api
     async search(searchTerm) {
+        //return empty array if no search term
         if(!searchTerm) {
             return [];
         }
-        
+        //get access token
         const accessToken = Spotify.getAccessToken();
-
+        //reach out to spotify api to request tracks based on search input
         try {
             const response = await fetch(`https://api.spotify.com/v1/search?q=${searchTerm}&type=track`,{
                 method: 'GET',
                 headers: { 'Authorization' : `Bearer ${accessToken}`}
             });
+            //return track data as array of track objects
             if(response.ok) {
                 const data = await response.json();
                 return data.tracks.items.map(track => {
@@ -58,20 +64,23 @@ const Spotify = {
             }
             throw new Error('Search request failed!');
         } catch(error) {
+            //if error log error and return empty array
             console.log(error);
             return [];
         }
     },
 
+    //create a new playlist on urser's spotify account
     async createPlaylist(uriList, name) {
+        //if no tracks exit method
         if(!uriList.length) {
             return;
         }
-
+        //if no playlist title set a default title
         if(!name) {
             name = 'New Playlist';
         }
-
+        //get access token
         const accessToken = Spotify.getAccessToken();
 
         //get userid from Spotify api
@@ -88,7 +97,7 @@ const Spotify = {
                 throw new Error('User Id request failed!');
             }
 
-            //use username to create a new playlist for that user 
+            //use userid to create a new playlist for that user 
             let playlistId;
             const playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
                 method: 'POST',
@@ -105,7 +114,7 @@ const Spotify = {
                 throw new Error('Create playlist request failed!');
             }
         
-            //add list of spotify uris to add tracks to playlist
+            //add list of spotify uris to add tracks to newly created playlist
             const tracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
                 method: 'POST',
                 headers: {
@@ -124,9 +133,9 @@ const Spotify = {
         }
     },
 
+    //method to get the current user's playlists from api
     async getPlaylists() {
         const accessToken = Spotify.getAccessToken();
-
         try {
             const playlistsResponse = await fetch('https://api.spotify.com/v1/me/playlists', {
                 method: 'GET',
@@ -149,7 +158,7 @@ const Spotify = {
             return [];
         }
     }, 
-
+    //get the tracks of a selected playlist from api
     async getPlaylistTracks(playlist_id) {
         const accessToken = Spotify.getAccessToken();
 
