@@ -46,7 +46,8 @@ export default function PlaylistContainer(props) {
                     handleClick={props.removeSong}
                     handleChange={props.changeTitle}
                     handleSave={props.createPlaylist}
-                    editMode={props.editMode}/>
+                    editMode={props.editMode}
+                    handleUpdate={props.updatePlaylist}/>
                     }
             {props.editMode && !showPlaylists ? <span id="switch" onClick={props.switchCreate}>Switch to Create Playlist</span> : null}
         </div>  

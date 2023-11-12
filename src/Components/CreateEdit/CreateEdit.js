@@ -4,7 +4,7 @@ import Tracklist from "../Tracklist/Tracklist";
 
 import './CreateEdit.css';
 
-export default function CreateEdit({playlist, symbol, playlistTitle, handleClick, handleChange, handleSave, editMode}) {
+export default function CreateEdit({playlist, symbol, playlistTitle, handleClick, handleChange, handleSave, handleUpdate, editMode}) {
     return (
         <div className="playlist-container">
             {editMode ? <h2>{playlistTitle}</h2> : 
@@ -19,7 +19,7 @@ export default function CreateEdit({playlist, symbol, playlistTitle, handleClick
                     <hr />
             </>}
             <Tracklist tracklist={playlist} handleClick={handleClick} symbol={symbol}/>
-            <button onClick={handleSave} id="save-button">Save to Spotify</button>
+            <button onClick={editMode ? handleUpdate : handleSave} id="save-button">Save to Spotify</button>
         </div>
     );
 }

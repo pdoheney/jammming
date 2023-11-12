@@ -27,6 +27,8 @@ function App() {
   //state to hold the id of playlist being edited and the snapshot id
   const [playlistId, setPlaylistId] = useState('');
   const [snapshotId, setSnapshotId] = useState('');
+  //state to store original uri list of a playlist being edited
+  const [originalUris, setOriginalUris] = useState([]);
 
   //effect used to initialize the spotify access token when app is first rendered
   useEffect(() => {
@@ -79,8 +81,8 @@ function App() {
   };
 
   //event handler to update the tracks of an existing playlist in spotify api
-  const updatePlaylist = () => {
-
+  const updatePlaylist = async () => {
+    const update = await Spotify.updatePlaylist(playlistId, snapshotId, originalUris);
   }
 
   //event handler to get a user's playlists from apotify api
@@ -96,6 +98,9 @@ function App() {
     const playlistTracks = await Spotify.getPlaylistTracks(playlist_id);
     setNewPlaylistTitle(playlistTitle);
     setNewPlaylistTracks([...playlistTracks]);
+    setOriginalUris(playlistTracks.map(track => {
+      return {uri: track.uri};
+    }));
     setEditMode(true);
   }
 
@@ -117,7 +122,8 @@ function App() {
           createPlaylist={createPlaylist}
           getPlaylists={getPlaylists}
           getPlaylistTracks={getPlaylistTracks}
-          switchCreate={switchCreate}/>
+          switchCreate={switchCreate}
+          updatePlaylist={updatePlaylist}/>
       </div>
     </>
   );

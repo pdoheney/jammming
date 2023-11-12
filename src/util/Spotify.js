@@ -1,4 +1,4 @@
-const clientId = '';
+const clientId = '64ef146580e74b1d94f07df4322263ae';
 const redirectURL = 'http://localhost:3000/';
 
 const Spotify = {
@@ -183,6 +183,33 @@ const Spotify = {
         } catch(error) {
             console.log(error);
             return [];
+        }
+    },
+
+    //method to update an existing playlists tracks
+    async updatePlaylist(playlist_id, snapshot_id, original_uris) {
+        const accessToken = Spotify.getAccessToken();
+
+        try {
+            //start by removing old tracklist from playlist
+            const removeResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    tracks: original_uris, 
+                    snapshot_id: snapshot_id
+                })
+            });
+            if(removeResponse.ok) {
+                console.log(removeResponse);
+            } else {
+                throw new Error('Delete Tracks request failed!');
+            }
+        } catch(error) {
+            console.log(error);
         }
     }
 };
