@@ -10,11 +10,13 @@ export default function PlaylistContainer(props) {
     const [showPlaylists, setShowPlaylists] = useState(false);
     const [activeTab, setActiveTab] = useState('create');
 
+    //when the active tab changes assign the new active tab the active class
     useEffect(() => {
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => tab.id === activeTab ? tab.classList.add('active') : tab.classList.remove('active'));
     }, [activeTab])
 
+    //when user clicks tab update state to determing what components are rendered
     const showTab = (event) => {
         setActiveTab(event.target.id);
 

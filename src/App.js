@@ -28,10 +28,12 @@ function App() {
   const [playlistId, setPlaylistId] = useState('');
   const [snapshotId, setSnapshotId] = useState('');
 
+  //effect used to initialize the spotify access token when app is first rendered
   useEffect(() => {
     Spotify.getAccessToken();
   },[]);
 
+  //event handler to search the spotify api for tracks similar to the search input
   const searchSpotify = async (event) => {
     event.preventDefault();
     const searchList = await Spotify.search(searchTerm)
@@ -61,6 +63,7 @@ function App() {
   //event handler that changes the playlist title state when user types into the input
   const changeTitle = ({target}) => setNewPlaylistTitle(target.value);
 
+  //event handler to switch from editing a playlist to creating a new playlist
   const switchCreate = () => {
     setEditMode(false);
     setNewPlaylistTitle('');
@@ -75,11 +78,18 @@ function App() {
     setNewPlaylistTitle('');
   };
 
+  //event handler to update the tracks of an existing playlist in spotify api
+  const updatePlaylist = () => {
+
+  }
+
+  //event handler to get a user's playlists from apotify api
   const getPlaylists = async () => {
     const playlists = await Spotify.getPlaylists();
     setPlaylists([...playlists])
   }
 
+  //event handler to get a playlists tracks from spotify api when playlist is clicked
   const getPlaylistTracks = async (playlist_id, playlistTitle, snapshot_id) => {
     setPlaylistId(playlist_id);
     setSnapshotId(snapshot_id);
