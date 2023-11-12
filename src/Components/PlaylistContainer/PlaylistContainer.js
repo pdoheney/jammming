@@ -6,7 +6,7 @@ import Playlists from "../Playlists/Playlists";
 import './PlaylistContainer.css';
 
 export default function PlaylistContainer(props) {
-
+    //state to determing if playlists or create/edit playlist component will be shown
     const [showPlaylists, setShowPlaylists] = useState(false);
 
     useEffect(() => {
@@ -20,13 +20,21 @@ export default function PlaylistContainer(props) {
         tabs.forEach(tab => tab.classList.remove('active'));
         event.target.classList.add('active');
 
-        event.target.id === 'playlists' ? setShowPlaylists(true) : setShowPlaylists(false);
+        if(event.target.id === 'playlists') {
+            setShowPlaylists(true);
+            if(!props.playlistTitle) {
+                props.setEditMode(false);
+            }
+        } else {
+            setShowPlaylists(false);
+            props.setEditMode(true);
+        }
     }
     
     return (
         <div id='container'>
             <div className="tabs">
-                <button className="tab active" id="create" onClick={showTab}>{props.editMode ? props.playlistTitle : 'Create Playlist'}</button>
+                <button className="tab active" id="create" onClick={showTab}>{props.editMode ? props.playlistTitle ? props.playlistTitle : 'Create Playlist' : 'Create Playlist'}</button>
                 <button className="tab" id="playlists" onClick={showTab}>Playlists</button>
             </div>
             {showPlaylists ? <Playlists playlists={props.playlists} clickHandler={props.getPlaylistTracks}/> 

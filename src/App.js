@@ -96,6 +96,7 @@ function App() {
           playlists={playlists}
           symbol={remove} 
           editMode={editMode}
+          setEditMode={setEditMode}
           removeSong={removeSong}
           changeTitle={changeTitle}
           createPlaylist={createPlaylist}
