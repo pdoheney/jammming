@@ -37,7 +37,7 @@ export default function PlaylistContainer(props) {
                 <button className="tab active" id="create" onClick={showTab}>{props.editMode ? props.playlistTitle ? props.playlistTitle : 'Create Playlist' : 'Create Playlist'}</button>
                 <button className="tab" id="playlists" onClick={showTab}>Playlists</button>
             </div>
-            {showPlaylists ? <Playlists playlists={props.playlists} clickHandler={props.getPlaylistTracks}/> 
+            {showPlaylists ? <Playlists playlists={props.playlists} clickHandler={props.getPlaylistTracks} setShowPlaylists={setShowPlaylists}/> 
                 :
                 <CreateEdit 
                     playlist={props.playlistTracks} 

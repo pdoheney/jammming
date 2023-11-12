@@ -2,12 +2,13 @@ import React from "react";
 
 import Playlist from "../Playlist/Playlist";
 
-export default function Playlists({playlists, clickHandler}) {
+export default function Playlists({playlists, clickHandler, setShowPlaylists}) {
     const renderPlaylist = () => {
         return playlists.map(playlist => <Playlist 
             key={playlist.id} 
             playlist={playlist}
-            clickHandler={clickHandler}/>);
+            clickHandler={clickHandler}
+            setShowPlaylists={setShowPlaylists}/>);
     }
 
     return(

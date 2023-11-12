@@ -2,9 +2,12 @@ import React from "react";
 
 import './Playlist.css';
 
-export default function Playlist({playlist, clickHandler}) {
+export default function Playlist({playlist, clickHandler, setShowPlaylists}) {
     return (
-        <div className="playlist" onClick={() => clickHandler(playlist.id, playlist.name)}>
+        <div className="playlist" onClick={() => {
+            clickHandler(playlist.id, playlist.name);
+            setShowPlaylists(false);
+        }}>
             <h3>{playlist.name}</h3>
         </div>
     );
