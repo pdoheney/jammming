@@ -11,12 +11,6 @@ export default function PlaylistContainer(props) {
     const [activeTab, setActiveTab] = useState('create');
 
     useEffect(() => {
-        if(showPlaylists) {
-            props.getPlaylists();
-        }
-    },[showPlaylists]);
-
-    useEffect(() => {
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => tab.id === activeTab ? tab.classList.add('active') : tab.classList.remove('active'));
     }, [activeTab])
@@ -25,6 +19,7 @@ export default function PlaylistContainer(props) {
         setActiveTab(event.target.id);
 
         if(event.target.id === 'playlists') {
+            props.getPlaylists();
             setShowPlaylists(true);
             if(!props.playlistTitle) {
                 props.setEditMode(false);
