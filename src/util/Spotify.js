@@ -1,4 +1,6 @@
-const clientId = '';
+import client_id from "./ClientId";
+
+const clientId = client_id;
 const redirectURL = 'http://localhost:3000/';
 
 const Spotify = {
