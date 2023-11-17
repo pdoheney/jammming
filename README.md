@@ -14,6 +14,7 @@ When editing the songs of a playlist the user cannot rename the playlist.  A goa
 
 ## Technologies Used
 
-- React(Javascript)
+- React (Javascript)
 - CSS
 - HTML
+- Node.js (npm)
