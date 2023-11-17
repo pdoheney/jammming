@@ -1,6 +1,6 @@
 # Jammming
 
-## Description:
+## Description
 
 At the highest level, Jammming is a React web application that utilizes Spotify's web API to allow users to search for songs by title and create custom playlists that can then be saved to their spotify account.  The user can utilize the search bar to search through Spotify and will be presented with the top 20 results in a search results section.  These songs can be added or removed from this new custom playlist, as well as allowing the user to create a custom playlist title.  When a user is satisfied with their playlist they can click the "Save to Spotify" button and the playlist will be added to their playlists under their new playlist title.  If no playlist title is added then a default "New Playlist" will be used as the title.
 
@@ -14,6 +14,6 @@ When editing the songs of a playlist the user cannot rename the playlist.  A goa
 
 ## Technologies Used
 
-- React
+- React(Javascript)
 - CSS
 - HTML
